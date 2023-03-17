@@ -1,0 +1,65 @@
+<body>
+  <header>
+      <mat-toolbar class="headerPrincipal">
+          <div>
+              <p>Hospital São Serevino</p>
+              <button class="botao1">Login</button>
+          </div>
+      </mat-toolbar>
+  </header>
+
+  <main>
+      <div>
+          <mat-drawer-container class="example-container">
+              <mat-drawer-content>
+                  <h1><b> Cadastro de pacientes</b></h1>
+                  <div class="formulario">
+                      <mat-form-field>
+                          <input matInput placeholder="Nome" [(ngModel)]="paciente.nome">
+
+                      </mat-form-field>
+                      <mat-form-field>
+                          <input matInput type="number" placeholder="Idade" [(ngModel)]="paciente.idade">
+                      </mat-form-field>
+                      <div *ngFor="let dependente of paciente.dependentes">
+                          <mat-form-field>
+                              <input matInput placeholder="Nome do Dependente" [(ngModel)]="dependente.nome">
+                          </mat-form-field>
+
+                          <mat-form-field>
+                              <input matInput type="number" placeholder="Idade do Dependente"
+                                  [(ngModel)]="dependente.idade">
+                          </mat-form-field>
+
+                      </div>
+                      <button class="botaoAdd" (click)="adicionarDependente()">Adicionar Dependente</button>
+                      <button class="botaoAdd" (click)="salvar()" [disabled]="!camposPreenchidos()">Salvar</button>
+                      <button class="botaoAdd" (click)="atualizar()">Atualizar</button>
+
+
+
+
+                      <mat-accordion>
+                          <mat-expansion-panel *ngFor="let paciente of pacientes">
+                              <mat-expansion-panel-header>
+                                  <mat-panel-title>{{ paciente.nome }}</mat-panel-title>
+                                  <mat-panel-description>{{ paciente.idade }}</mat-panel-description>
+                                  <button mat-icon-button (click)="excluirPaciente(paciente)">
+                                      <mat-icon>delete</mat-icon>
+                                  </button>
+
+                              </mat-expansion-panel-header>
+                              <p>Dependentes:</p>
+                              <ul>
+                                  <li *ngFor="let dependente of paciente.dependentes">{{ dependente.nome }}, {{ dependente.idade }}</li>
+                              </ul>
+                          </mat-expansion-panel>
+                      </mat-accordion>
+                  </div>
+              </mat-drawer-content>
+
+          </mat-drawer-container>
+
+      </div>
+  </main>
+</body>
